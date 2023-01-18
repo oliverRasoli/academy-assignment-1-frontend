@@ -1,6 +1,8 @@
 {
   "landingPage": {
-    "title": "Welcome to MeeWs frontend template",
+    "title": "Velkommen til min første MeeW App!",
+    "subTitle": "En app hvor du kan tilføje kort med hunde ",
+    "komIgang": "Kom igang",
     "signIn": "Sign in"
   },
   "authentication": {

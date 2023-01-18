@@ -18,10 +18,10 @@ const LandingPage: React.FC = () => {
         </Center>
         <div className="fixed w-full bg-red-500 bottom-0 p-5">
           <h3 className="pl-1">{t('landingPage.title')}</h3>
-          <p className="pb-4 pl-1">En app hvor du kan tilføje kort med hunde </p>
+          <p className="pb-4 pl-1">{t('landingPage.subTitle')}</p>
 
           <IonButton onClick={() => router.push('/login')} expand="full" className="h-[50px]">
-            Kom i gang
+            {t('landingPage.komIgang')}
           </IonButton>
         </div>
       </IonContent>
