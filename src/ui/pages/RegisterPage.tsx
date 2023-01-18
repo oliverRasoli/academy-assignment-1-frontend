@@ -4,7 +4,7 @@ import RegisterForm from 'ui/components/authentication/register/RegisterForm';
 
 const RegisterPage: React.FC = () => (
   <IonPage>
-    <IonContent fullscreen color={'white-background'} class="flex justify-center items-center">
+    <IonContent fullscreen class="flex justify-center items-center">
       <RegisterForm togglePasswordButtonType="icon" />
     </IonContent>
   </IonPage>
