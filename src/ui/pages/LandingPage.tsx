@@ -1,6 +1,6 @@
 import React from 'react';
 import { IonButton, IonContent, IonImg, IonPage, useIonRouter } from '@ionic/react';
-import img from 'static/assets/img/meew-bg.jpg';
+import img from 'static/assets/img/this-is-fine.png';
 
 /**
  * Notice that the img will "underlap" under the content, to keep its proportion.
@@ -11,10 +11,10 @@ const LandingPage: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <IonImg src={img} class="fixed w-full h-auto" />
-        <div className="fixed w-full bg-white bottom-0 p-5">
-          <h3>Velkommen til MeeW Apps!</h3>
-          <p className="pb-4">Din app-udviklings template til alle behov dine app-udviklings behov!</p>
+        <IonImg src={img} class="fixed content-center top-48" />
+        <div className="fixed w-full bg-red-500 bottom-0 p-5">
+          <h3 className="pl-1">Velkommen til min første MeeW App!</h3>
+          <p className="pb-4 pl-1">En app hvor du kan tilføje kort med hunde </p>
 
           <IonButton onClick={() => router.push('/login')} expand="full" className="h-[50px]">
             Kom i gang

@@ -5,8 +5,8 @@ import LoginForm from 'ui/components/authentication/login/LoginForm';
 const LoginPage: React.FC = () => {
   return (
     <IonPage>
-      <IonContent fullscreen color={'white-background'} class="h-full w-full flex justify-center items-center">
-        <LoginForm togglePasswordButtonType='icon'/>
+      <IonContent fullscreen class="h-full w-full flex justify-center items-center">
+        <LoginForm togglePasswordButtonType="icon" />
       </IonContent>
     </IonPage>
   );

@@ -66,7 +66,7 @@ const App: React.FC = () => {
   };
   if (loading) return <IonLoading isOpen />;
   return (
-    <IonApp className="bg-white">
+    <IonApp>
       <AntdThemeWrapper>
         <IonReactRouter>
           <Switch>
