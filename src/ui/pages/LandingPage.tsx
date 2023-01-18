@@ -16,11 +16,11 @@ const LandingPage: React.FC = () => {
         <Center>
           <IonImg src={img} class="fixed object-cover" />
         </Center>
-        <div className="fixed w-full bg-prompt-color bottom-0 p-5">
+        <div className="fixed w-full bg-prompt-color border-2 border-black bottom-0 p-5">
           <h3 className="pl-1">{t('landingPage.title')}</h3>
           <p className="pb-4 pl-1">{t('landingPage.subTitle')}</p>
 
-          <IonButton onClick={() => router.push('/login')} expand="full" className="h-[50px]">
+          <IonButton onClick={() => router.push('/login')} expand="full" className="h-[50px] border-2 border-black">
             {t('landingPage.getStarted')}
           </IonButton>
         </div>

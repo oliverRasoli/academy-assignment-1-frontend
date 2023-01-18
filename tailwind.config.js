@@ -7,6 +7,7 @@ module.exports = {
         'primary-brand': '#202124',
         'brand-grey': '#34363c',
         'brand-light-grey': '#EAEAEA',
+        // Tailwind custom palette
         'custom-palette-black': '#231F20',
         'custom-palette-vanilla-yellow': '#F3DFA2',
         'custom-palette-red': '#BB4430',
