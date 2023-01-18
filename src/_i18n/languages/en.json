@@ -1,8 +1,8 @@
 {
   "landingPage": {
-    "title": "Velkommen til min første MeeW App!",
-    "subTitle": "En app hvor du kan tilføje kort med hunde ",
-    "komIgang": "Kom igang",
+    "title": "Welcome to my first Meew Application",
+    "subTitle": "An app where you can add cards of your favorite dogs ",
+    "getStarted": "Get started!",
     "signIn": "Sign in"
   },
   "authentication": {

@@ -21,7 +21,7 @@ const LandingPage: React.FC = () => {
           <p className="pb-4 pl-1">{t('landingPage.subTitle')}</p>
 
           <IonButton onClick={() => router.push('/login')} expand="full" className="h-[50px]">
-            {t('landingPage.komIgang')}
+            {t('landingPage.getStarted')}
           </IonButton>
         </div>
       </IonContent>
