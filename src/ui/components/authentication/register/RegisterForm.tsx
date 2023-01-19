@@ -110,21 +110,49 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType = 
     }
   };
 
+  let registerButton;
+  if (!isDisabled) {
+    registerButton = (
+      <IonButton expand="full" className="w-full mb-2 border-2 border-black" onClick={handleSignUp}>
+        {t('authentication.signUp')}
+      </IonButton>
+    );
+  } else {
+    registerButton = (
+      <IonButton expand="full" className="w-full mb-2" onClick={handleSignUp} disabled={isDisabled}>
+        {t('authentication.signUp')}
+      </IonButton>
+    );
+  }
+
   return (
-    <div className="flex h-full justify-center items-center w-full">
+    <div className="flex h-50 justify-center bg-custom-palette-vanilla-yellow border-2 border-black items-center w-full py-5 ">
       <form className="sm:w-[400px] w-3/4 relative" onSubmit={handleSignUp}>
         <div className="flex items-center">
-          <IonIcon onClick={() => history.goBack()} icon={chevronBackCircle} size={'large'} color={'primary-brand'} className="pr-2 cursor-pointer" />
-          <IonText className="text-primary-brand text-xl font-extrabold">{t('authentication.signUp')}</IonText>
+          <IonIcon
+            onClick={() => history.goBack()}
+            icon={chevronBackCircle}
+            size={'large'}
+            color={'primary-brand'}
+            className="cursor-pointer bg-white rounded-full"
+          />
+          <IonText className="pl-2 text-primary-brand text-xl font-extrabold">{t('authentication.signUp')}</IonText>
         </div>
-        <IonItem lines="none" color={'white-background'} className={`border ${emailValid ? 'border-grey-text' : 'border-red-300'} mt-8`}>
-          <IonInput value={email} placeholder={t('authentication.email')} onIonChange={(e) => setEmail(e.detail.value ?? '')} type="email" required class="h-[59px] items-center" />
+        <IonItem lines="none" color={'white-background'} className={`border-4 ${emailValid ? 'border-white' : 'border-red-300'} mt-8`}>
+          <IonInput
+            value={email}
+            placeholder={t('authentication.email')}
+            onIonChange={(e) => setEmail(e.detail.value ?? '')}
+            type="email"
+            required
+            class="h-[59px] items-center"
+          />
           <IonIcon icon={at} size="medium" className="text-primary-brand" />
         </IonItem>
 
         <IonText className={`text-red-500 ${emailValid && 'opacity-0'}`}>{t('authentication.emailInvalid')}</IonText>
 
-        <IonItem lines="none" color={'white-background'} className={`border ${passwordValid ? 'border-grey-text' : 'border-red-300'}`}>
+        <IonItem lines="none" color={'white-background'} className={`border-4 ${passwordValid ? 'border-white' : 'border-red-300'}`}>
           <IonInput
             value={password}
             placeholder={t('authentication.password')}
@@ -134,14 +162,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType = 
             class="h-[59px] items-center"
           />
           {password !== '' && togglePasswordButton(false)}
-          {password === '' && (
-            <IonIcon icon={lockClosedOutline} size="medium" className="text-primary-brand" />
-          )}
+          {password === '' && <IonIcon icon={lockClosedOutline} size="medium" className="text-primary-brand" />}
         </IonItem>
 
         <IonText className={`text-red-500 ${passwordValid && 'opacity-0'}`}>{t('authentication.passwordMinLength')}</IonText>
 
-        <IonItem lines="none" color={'white-background'} className={`border ${repPasswordValid ? 'border-grey-text' : 'border-red-300'}`}>
+        <IonItem lines="none" color={'white-background'} className={`border-4 ${repPasswordValid ? 'border-white' : 'border-red-300'}`}>
           <IonInput
             value={repeatedPassword}
             placeholder={t('authentication.repeatPassword')}
@@ -151,16 +177,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType = 
             class="h-[59px] items-center"
           />
           {repeatedPassword !== '' && togglePasswordButton(true)}
-          {repeatedPassword === '' && (
-            <IonIcon icon={lockClosedOutline} size="medium" className="text-primary-brand" />
-          )}
+          {repeatedPassword === '' && <IonIcon icon={lockClosedOutline} size="medium" className="text-primary-brand" />}
         </IonItem>
 
         <IonText className={`text-red-500 ${repPasswordValid && 'opacity-0'}`}>{t('authentication.passwordMustMatch')}</IonText>
 
-        <IonButton expand="full" className="w-full mb-2" onClick={handleSignUp} disabled={isDisabled}>
-          {t('authentication.signUp')}
-        </IonButton>
+        {registerButton}
+
         <button className="hidden" type="submit" />
 
         <Separator text={t('authentication.or')} />
