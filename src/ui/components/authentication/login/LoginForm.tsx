@@ -7,6 +7,7 @@ import SocialLoginButton from '../social-login-buttons/SocialLoginButton';
 import { Provider } from '@supabase/supabase-js';
 import Separator from 'ui/components/generic/Separator';
 import { t } from 'i18next';
+import { render } from '@testing-library/react';
 
 type LoginFormProps = {
   togglePasswordButtonType?: 'text' | 'icon' | 'none';
@@ -58,6 +59,21 @@ const LoginForm: React.FC<LoginFormProps> = ({ togglePasswordButtonType = 'icon'
     await dismiss();
   };
 
+  let loginButton;
+  if (!isSubmitDisabled) {
+    loginButton = (
+      <IonButton expand="full" className="w-full border-2 border-black" onClick={handleLogin}>
+        {t('authentication.login')}
+      </IonButton>
+    );
+  } else {
+    loginButton = (
+      <IonButton expand="full" className="w-full" onClick={handleLogin} disabled={isSubmitDisabled}>
+        {t('authentication.login')}
+      </IonButton>
+    );
+  }
+
   const handleSignUp = () => router.push('/register');
 
   const handleForgottenPassword = () => router.push('/forgotpassword');
@@ -75,11 +91,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ togglePasswordButtonType = 'icon'
   };
 
   return (
-    <div className="flex h-full justify-center items-center w-full">
+    <div className="flex h-50 justify-center bg-custom-palette-vanilla-yellow border-2 border-black items-center w-full py-5 ">
       <form className="sm:w-[400px] w-3/4" onSubmit={handleLogin}>
         <IonText className="text-primary-brand text-xl font-extrabold">{t('authentication.login')}</IonText>
         <IonItem lines="none" color={'white-background'} class="border border-grey-text mt-8">
-          <IonInput value={email} placeholder={t('authentication.email')} onIonChange={(e) => setEmail(e.detail.value ?? '')} type="email" required class="h-[59px] items-center" />
+          <IonInput
+            value={email}
+            placeholder={t('authentication.email')}
+            onIonChange={(e) => setEmail(e.detail.value ?? '')}
+            type="email"
+            required
+            class="h-[59px] items-center"
+          />
           <IonIcon icon={at} size="medium" className="text-primary-brand" />
         </IonItem>
 
@@ -96,10 +119,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ togglePasswordButtonType = 'icon'
           {password === '' && togglePasswordButtonType !== 'none' && <IonIcon icon={lockClosedOutline} size="medium" className="text-primary-brand" />}
         </IonItem>
         <div className="grid grid-cols-2 gap-5 mt-5">
-          <IonButton expand="full" className="w-full" onClick={handleLogin} disabled={isSubmitDisabled}>
-            {t('authentication.login')}
-          </IonButton>
-          <IonButton expand="full" className="w-full" onClick={handleSignUp}>
+          {loginButton}
+          <IonButton expand="full" className="w-full border-2 border-black" onClick={handleSignUp}>
             {t('authentication.signUp')}
           </IonButton>
           <button className="hidden" type="submit" />
