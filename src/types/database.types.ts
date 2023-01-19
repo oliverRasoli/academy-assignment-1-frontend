@@ -9,24 +9,41 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      messages: {
+      Dogs: {
         Row: {
-          author: string | null
-          created_at: string | null
           id: number
-          message: string | null
+          race_name: string
+          reason: string
         }
         Insert: {
-          author?: string | null
-          created_at?: string | null
           id?: number
-          message?: string | null
+          race_name: string
+          reason: string
         }
         Update: {
-          author?: string | null
+          id?: number
+          race_name?: string
+          reason?: string
+        }
+      }
+      Profiles: {
+        Row: {
+          created_at: string | null
+          id: number
+          username: string
+          uuid: number
+        }
+        Insert: {
           created_at?: string | null
           id?: number
-          message?: string | null
+          username: string
+          uuid: number
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+          username?: string
+          uuid?: number
         }
       }
     }
