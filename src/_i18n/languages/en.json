@@ -5,6 +5,9 @@
     "getStarted": "Get started!",
     "signIn": "Sign in"
   },
+  "homePage": {
+    "logOut": "Log Out"
+  },
   "tabContent": {
     "takeAPhoto": "Take a photo!"
   },

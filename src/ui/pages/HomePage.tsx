@@ -27,6 +27,7 @@ import Tab3 from './tabs/tab-3/Tab3';
 import Tab4 from './tabs/tab-4/Tab4';
 import { supabase } from 'apis/supabaseClient';
 import { useAuthUserStore } from 'store/user';
+import { t } from 'i18next';
 
 const HomePage: React.FC = () => {
   const router = useIonRouter();
@@ -48,7 +49,7 @@ const HomePage: React.FC = () => {
       <IonHeader>
         <IonToolbar color={'tertiary'}>
           <IonButton onClick={handleLogOut} expand="full" color={'secondary'} class="border-2 border-black" slot="end">
-            Log ud
+            {t('homePage.logOut')}
           </IonButton>
           <IonButtons slot="start">
             <IonMenuButton />
