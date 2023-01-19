@@ -8,6 +8,9 @@
   "homePage": {
     "logOut": "Log Out"
   },
+  "profilePage": {
+    "title": "Profile Tab"
+  },
   "tabContent": {
     "takeAPhoto": "Take a photo!"
   },
