@@ -88,18 +88,11 @@ export default HomePage;
 
 const pages = [
   {
-    name: 'photo',
-    icon: cameraOutline,
-    path: '/tab1',
-    component: Tab1,
-    redirect: true,
-  },
-  {
     name: 'people',
     icon: peopleOutline,
     path: '/tab2',
     component: Tab2,
-    redirect: false,
+    redirect: true,
   },
   {
     name: 'ticket',
