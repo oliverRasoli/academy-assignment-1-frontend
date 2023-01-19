@@ -19,7 +19,7 @@ import {
   IonButton,
   useIonRouter,
 } from '@ionic/react';
-import { peopleOutline, ticketOutline, walletOutline, cameraOutline } from 'ionicons/icons';
+import { peopleOutline, homeOutline, pawOutline } from 'ionicons/icons';
 
 import Tab1 from './tabs/tab-1/Tab1';
 import Tab2 from './tabs/tab-2/Tab2';
@@ -89,22 +89,22 @@ export default HomePage;
 
 const pages = [
   {
-    name: 'people',
+    name: 'profile',
     icon: peopleOutline,
     path: '/tab2',
     component: Tab2,
-    redirect: true,
-  },
-  {
-    name: 'ticket',
-    icon: ticketOutline,
-    path: '/tab3',
-    component: Tab3,
     redirect: false,
   },
   {
-    name: 'wallet',
-    icon: walletOutline,
+    name: 'home',
+    icon: homeOutline,
+    path: '/tab3',
+    component: Tab3,
+    redirect: true,
+  },
+  {
+    name: 'addDogs',
+    icon: pawOutline,
     path: '/tab4',
     component: Tab4,
     redirect: false,
