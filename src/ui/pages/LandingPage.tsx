@@ -14,7 +14,7 @@ const LandingPage: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
         <Center>
-          <IonImg src={img} class="fixed object-cover" />
+          <IonImg src={img} class="fixed w-72 object-cover" />
         </Center>
         <div className="fixed w-full bg-custom-palette-vanilla-yellow border-2 border-black bottom-0 p-5">
           <h3 className="pl-1">{t('landingPage.title')}</h3>
