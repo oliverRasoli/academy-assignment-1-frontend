@@ -9,7 +9,7 @@ type TakePictureProps = {
 
 const TakePicture: React.FC<TakePictureProps> = ({ onPictureTaken }) => (
   <IonFab vertical="bottom" horizontal="center" slot="fixed">
-    <IonFabButton onClick={() => takePicture().then((d) => onPictureTaken(d))}>
+    <IonFabButton color={'secondary'} onClick={() => takePicture().then((d) => onPictureTaken(d))}>
       <IonIcon icon={camera} />
     </IonFabButton>
   </IonFab>

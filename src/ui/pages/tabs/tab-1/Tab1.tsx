@@ -8,7 +8,7 @@ const Tab1: React.FC = () => {
   const [picture, setPicture] = React.useState<Photo>();
 
   return (
-    <IonContent color={'white-background'}>
+    <IonContent>
       {!picture && <IonTitle>{t('tabContent.takeAPhoto')}</IonTitle>}
       {picture && <img src={picture?.webPath} alt="your upload" className="h-full w-auto m-auto" />}
 

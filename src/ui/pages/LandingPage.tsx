@@ -20,7 +20,7 @@ const LandingPage: React.FC = () => {
           <h3 className="pl-1">{t('landingPage.title')}</h3>
           <p className="pb-4 pl-1">{t('landingPage.subTitle')}</p>
 
-          <IonButton onClick={() => router.push('/login')} expand="full" className="h-[50px] border-2 border-black">
+          <IonButton onClick={() => router.push('/login')} expand="full" color={'secondary'} className="h-[50px] border-2 border-black">
             {t('landingPage.getStarted')}
           </IonButton>
         </div>

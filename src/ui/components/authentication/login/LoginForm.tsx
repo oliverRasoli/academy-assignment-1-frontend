@@ -62,13 +62,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ togglePasswordButtonType = 'icon'
   let loginButton;
   if (!isSubmitDisabled) {
     loginButton = (
-      <IonButton expand="full" className="w-full border-2 border-black" onClick={handleLogin}>
+      <IonButton expand="full" className="w-full border-2 border-black" color={'secondary'} onClick={handleLogin}>
         {t('authentication.login')}
       </IonButton>
     );
   } else {
     loginButton = (
-      <IonButton expand="full" className="w-full" onClick={handleLogin} disabled={isSubmitDisabled}>
+      <IonButton expand="full" className="w-full" color={'secondary'} onClick={handleLogin} disabled={isSubmitDisabled}>
         {t('authentication.login')}
       </IonButton>
     );
@@ -120,7 +120,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ togglePasswordButtonType = 'icon'
         </IonItem>
         <div className="grid grid-cols-2 gap-5 mt-5">
           {loginButton}
-          <IonButton expand="full" className="w-full border-2 border-black" onClick={handleSignUp}>
+          <IonButton expand="full" className="w-full border-2 border-black" color={'secondary'} onClick={handleSignUp}>
             {t('authentication.signUp')}
           </IonButton>
           <button className="hidden" type="submit" />

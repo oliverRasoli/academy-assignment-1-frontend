@@ -1,14 +1,16 @@
 /** Edit this as your general style guide! (Typography is in global.css) */
 :root {
-  --primary-color: #7ebdc2;
-  --primary-color-rgb: rgb(32, 33, 36);
+  --primary-color: #bb4430;
+  --primary-color-rgb: rgb(187, 68, 48);
   --primary-shade: #151517;
   --primary-tint: #34363c;
 
-  --secondary-color: #202124;
-  --secondary-color-rgb: rgb(32, 33, 36);
+  --secondary-color: #7ebdc2;
+  --secondary-color-rgb: rgb(126, 189, 194);
   --secondary-shade: #151517;
   --secondary-tint: #34363c;
+
+  --tertiary-color: #f3dfa2;
 
   --current-theme-accent: var(--ant-primary-color);
 
@@ -16,5 +18,20 @@
   --warning: #edd036;
   --danger: #eb3f3f;
 
-  --background: var(--primary-color);
+  --background: var(--secondary-color);
+}
+
+ion-tab-button {
+  background: var(--secondary-color);
+  padding: 0.5em;
+}
+
+ion-header {
+  border-width: 2px;
+  border-color: black;
+}
+
+ion-tab-bar {
+  border-width: 2px;
+  border-color: black;
 }

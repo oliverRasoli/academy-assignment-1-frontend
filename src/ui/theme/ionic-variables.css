@@ -23,7 +23,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-secondary-tint: var(--secondary-tint);
 
   /** tertiary **/
-  --ion-color-tertiary: var(--secondary-color);
+  --ion-color-tertiary: var(--tertiary-color);
   --ion-color-tertiary-rgb: 82, 96, 255;
   --ion-color-tertiary-contrast: #ffffff;
   --ion-color-tertiary-contrast-rgb: 255, 255, 255;
@@ -69,6 +69,14 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-white-background-shade: #dddddd;
   --ion-color-white-background-tint: #fbfbfb;
 
+  /** Why doesn't this work? **/
+  --ion-color-vanilla-yellow-background: #f3dfa2;
+  --ion-color-vanilla-yellow-background-rgb: 243, 223, 162;
+  --ion-color-vanilla-yellow-background-contrast: #2b281c;
+  --ion-color-vanilla-yellow-background-contrast-rgb: 43, 40, 28;
+  --ion-color-vanilla-yellow-background-shade: #bdac7b;
+  --ion-color-vanilla-yellow-background-tint: #fae3a2;
+
   --ion-color-black-text: #0e0e0e;
   --ion-color-black-text-rgb: 14, 14, 14;
   --ion-color-black-text-contrast: #ffffff;
@@ -105,6 +113,24 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-contrast-rgb: var(--ion-color-primary-brand-contrast-rgb);
   --ion-color-shade: var(--ion-color-primary-brand-shade);
   --ion-color-tint: var(--ion-color-primary-brand-tint);
+}
+
+.ion-color-white-background {
+  --ion-color-base: var(--ion-color-white-background);
+  --ion-color-base-rgb: var(--ion-color-white-background-rgb);
+  --ion-color-contrast: var(--ion-color-white-background-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-white-background-contrast-rgb);
+  --ion-color-shade: var(--ion-color-white-background-shade);
+  --ion-color-tint: var(--ion-color-white-background-tint);
+}
+
+.ion-color-vanilla-yellow-background {
+  --ion-color-base: var(--ion-color-white-background);
+  --ion-color-base-rgb: var(--ion-color-white-background-rgb);
+  --ion-color-contrast: var(--ion-color-white-background-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-white-background-contrast-rgb);
+  --ion-color-shade: var(--ion-color-white-background-shade);
+  --ion-color-tint: var(--ion-color-white-background-tint);
 }
 
 .ion-color-white-background {

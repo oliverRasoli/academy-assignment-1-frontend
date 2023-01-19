@@ -46,8 +46,8 @@ const HomePage: React.FC = () => {
   return (
     <IonPage id="main-content">
       <IonHeader>
-        <IonToolbar>
-          <IonButton onClick={handleLogOut} slot="end">
+        <IonToolbar color={'tertiary'}>
+          <IonButton onClick={handleLogOut} expand="full" color={'secondary'} class="border-2 border-black" slot="end">
             Log ud
           </IonButton>
           <IonButtons slot="start">
@@ -68,7 +68,7 @@ const HomePage: React.FC = () => {
               </Route>
             </IonRouterOutlet>
 
-            <IonTabBar slot="bottom" color={'white-background'} class={'h-[70px] border-t-[1px] border'}>
+            <IonTabBar slot="bottom" color={'tertiary'} class={'h-[70px] border-t-[1px] border'}>
               {pages.map((p, i) => {
                 return (
                   <IonTabButton key={i} tab={`tab${i}`} href={p.path}>
