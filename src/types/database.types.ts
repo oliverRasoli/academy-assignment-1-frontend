@@ -31,19 +31,19 @@ export interface Database {
           created_at: string | null
           id: number
           username: string
-          uuid: number
+          uuid: string
         }
         Insert: {
           created_at?: string | null
           id?: number
           username: string
-          uuid: number
+          uuid: string
         }
         Update: {
           created_at?: string | null
           id?: number
           username?: string
-          uuid?: number
+          uuid?: string
         }
       }
     }

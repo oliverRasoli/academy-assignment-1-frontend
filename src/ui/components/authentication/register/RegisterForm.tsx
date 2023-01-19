@@ -21,6 +21,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType = 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [repeatedPassword, setRepeatedPassword] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const [passwordShown, setPasswordShown] = useState<boolean>(false);
   const [repeatedPasswordShown, setRepeatedPasswordShown] = useState<boolean>(false);
@@ -53,6 +54,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType = 
     const { data, error } = await supabase.auth.signUp({ email, password });
     if (data.user) {
       setAuthUser(data.user);
+      console.log(data);
+      await supabase.from('Profiles').insert({ username: username, uuid: data.user.id, created_at: data.user.created_at });
       await dismiss();
       await presentAlert({ header: t('authentication.signUpSuccessful'), buttons: ['OK'] });
       router.push('/intro');
@@ -113,13 +116,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType = 
   let registerButton;
   if (!isDisabled) {
     registerButton = (
-      <IonButton expand="full" className="w-full mb-2 border-2 border-black" onClick={handleSignUp}>
+      <IonButton expand="full" className="w-full mb-2 border-2 border-black" color={'secondary'} onClick={handleSignUp}>
         {t('authentication.signUp')}
       </IonButton>
     );
   } else {
     registerButton = (
-      <IonButton expand="full" className="w-full mb-2" onClick={handleSignUp} disabled={isDisabled}>
+      <IonButton expand="full" className="w-full mb-2" onClick={handleSignUp} color={'secondary'} disabled={isDisabled}>
         {t('authentication.signUp')}
       </IonButton>
     );
@@ -133,7 +136,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType = 
             onClick={() => history.goBack()}
             icon={chevronBackCircle}
             size={'large'}
-            color={'primary-brand'}
+            color={'secondary'}
             className="cursor-pointer bg-white rounded-full"
           />
           <IonText className="pl-2 text-primary-brand text-xl font-extrabold">{t('authentication.signUp')}</IonText>
@@ -144,6 +147,18 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType = 
             placeholder={t('authentication.email')}
             onIonChange={(e) => setEmail(e.detail.value ?? '')}
             type="email"
+            required
+            class="h-[59px] items-center"
+          />
+          <IonIcon icon={at} size="medium" className="text-primary-brand" />
+        </IonItem>
+
+        <IonItem lines="none" color={'white-background'} className={'border-4 mt-8'}>
+          <IonInput
+            value={username}
+            placeholder={t('authentication.username')}
+            onIonChange={(e) => setUsername(e.detail.value ?? '')}
+            type="text"
             required
             class="h-[59px] items-center"
           />
