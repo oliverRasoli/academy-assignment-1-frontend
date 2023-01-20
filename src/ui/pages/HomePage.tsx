@@ -32,25 +32,15 @@ import { t } from 'i18next';
 const HomePage: React.FC = () => {
   const router = useIonRouter();
   const authUser = useAuthUserStore((state) => state.authUser);
-  const resetAuthUser = useAuthUserStore((state) => state.resetAuthUser);
 
   useEffect(() => {
     if (!authUser) router.push('/login');
   }, [router, authUser]);
 
-  const handleLogOut = async () => {
-    resetAuthUser();
-    await supabase.auth.signOut();
-    router.push('/login');
-  };
-
   return (
     <IonPage id="main-content">
       <IonHeader>
         <IonToolbar color={'tertiary'}>
-          <IonButton onClick={handleLogOut} expand="full" color={'secondary'} class="border-2 border-black" slot="end">
-            {t('homePage.logOut')}
-          </IonButton>
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>

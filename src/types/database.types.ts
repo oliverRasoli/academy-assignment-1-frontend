@@ -30,18 +30,21 @@ export interface Database {
         Row: {
           created_at: string | null
           id: number
+          password: string
           username: string
           uuid: string
         }
         Insert: {
           created_at?: string | null
           id?: number
+          password: string
           username: string
           uuid: string
         }
         Update: {
           created_at?: string | null
           id?: number
+          password?: string
           username?: string
           uuid?: string
         }

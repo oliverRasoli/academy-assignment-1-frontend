@@ -9,7 +9,12 @@
     "logOut": "Log Out"
   },
   "profilePage": {
-    "title": "Profile Tab"
+    "editProfile": "Edit your profile",
+    "email": "Email",
+    "username": "Username",
+    "password": "Password",
+    "repeatPassword": "Repeat password",
+    "submitChanges": "Submit Changes"
   },
   "tabContent": {
     "takeAPhoto": "Take a photo!"

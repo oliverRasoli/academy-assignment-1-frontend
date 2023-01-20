@@ -2,11 +2,13 @@ import React from 'react';
 import { IonContent, IonTitle } from '@ionic/react';
 import { t } from 'i18next';
 import EditProfileForm from './EditProfileForm';
+import { Center } from 'ui/components/generic/Center';
 
 const Tab2: React.FC = () => (
-  <IonContent color={'white-background'}>
-    <IonTitle>{t('profilePage.title')}</IonTitle>
-    <EditProfileForm />
+  <IonContent color={'primary'}>
+    <Center>
+      <EditProfileForm />
+    </Center>
   </IonContent>
 );
 
