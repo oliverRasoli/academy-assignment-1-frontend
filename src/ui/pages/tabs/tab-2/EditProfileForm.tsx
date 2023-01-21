@@ -25,7 +25,8 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
   const [emailValid, setEmailValid] = useState<boolean>(true);
   const [passwordValid, setPasswordValid] = useState<boolean>(true);
   const [repPasswordValid, setRepPasswordValid] = useState<boolean>(true);
-  const [changeHappened, setChangedHappeend] = useState<boolean>(false);
+  const [usernameChanged, setUsernameChanged] = useState<boolean>(false);
+  const [emailChanged, setEmailChanged] = useState<boolean>(false);
 
   useEffect(() => {
     if (email) {
@@ -64,16 +65,16 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
   useEffect(() => {
     if (authUser) {
       if (authUser.email !== email) {
-        setChangedHappeend(true);
+        setEmailChanged(true);
       } else {
-        setChangedHappeend(false);
+        setEmailChanged(false);
       }
     }
 
     if (username !== oldUsername) {
-      setChangedHappeend(true);
+      setUsernameChanged(true);
     } else {
-      setChangedHappeend(false);
+      setUsernameChanged(false);
     }
   }, [email, username, oldUsername]);
 
@@ -145,7 +146,7 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
       <form onSubmit={handleUserChange}>
         <IonText className="text-primary-brand text-xl font-extrabold">{t('profilePage.editProfile')}</IonText>
         <IonItem lines="none" color={'white-background'} className={`border-4 ${emailValid ? 'border-white' : 'border-red-300'} mt-8`}>
-          <div className={`${changeHappened ? 'text-black' : 'text-stone-500'}`}>
+          <div className={`${emailChanged ? 'text-black' : 'text-stone-500'}`}>
             <IonInput
               value={email}
               placeholder={t('profilePage.email')}
@@ -159,7 +160,7 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
         </IonItem>
         <IonText className={`text-red-500 ${emailValid && 'opacity-0'}`}>{t('authentication.emailInvalid')}</IonText>
         <IonItem lines="none" color={'white-background'} className={'border-4 border-white'}>
-          <div className={`${changeHappened ? 'text-black' : 'text-stone-500'}`}>
+          <div className={`${usernameChanged ? 'text-black' : 'text-stone-500'}`}>
             <IonInput
               value={username}
               placeholder={t('profilePage.username')}
