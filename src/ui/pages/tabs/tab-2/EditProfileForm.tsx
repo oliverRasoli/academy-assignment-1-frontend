@@ -18,6 +18,7 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
   const [password, setPassword] = useState<string>('');
   const [repeatedPassword, setRepeatedPassword] = useState<string>('');
   const [username, setUsername] = useState<string>('');
+  const [oldUsername, setOldUsername] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const [passwordShown, setPasswordShown] = useState<boolean>(false);
   const [repeatedPasswordShown, setRepeatedPasswordShown] = useState<boolean>(false);
@@ -49,9 +50,10 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
     if (authUser) {
       setEmail(authUser.email);
     }
-    const { data, error } = await supabase.from('Profiles').select('username').single();
+    const { data, error } = await supabase.from('Profiles').select('username, uuid').eq('uuid', authUser?.id).single();
     if (data) {
       setUsername(data.username);
+      setOldUsername(data.username);
     }
   }
 
@@ -67,7 +69,13 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
         setChangedHappeend(false);
       }
     }
-  }, [email]);
+
+    if (username !== oldUsername) {
+      setChangedHappeend(true);
+    } else {
+      setChangedHappeend(false);
+    }
+  }, [email, username, oldUsername]);
 
   const handleUserChange = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
