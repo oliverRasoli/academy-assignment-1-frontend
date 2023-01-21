@@ -13,20 +13,23 @@ type RegisterFormProps = {
 const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType = 'icon' }) => {
   const authUser = useAuthUserStore((state) => state.authUser);
   const resetAuthUser = useAuthUserStore((state) => state.resetAuthUser);
+  const setAuthUser = useAuthUserStore((state) => state.setAuthUser);
   const router = useIonRouter();
   const [email, setEmail] = useState<string | undefined>('');
-  const [password, setPassword] = useState<string>('');
-  const [repeatedPassword, setRepeatedPassword] = useState<string>('');
-  const [username, setUsername] = useState<string>('');
-  const [oldUsername, setOldUsername] = useState<string>('');
-  const [isDisabled, setIsDisabled] = useState<boolean>(true);
-  const [passwordShown, setPasswordShown] = useState<boolean>(false);
-  const [repeatedPasswordShown, setRepeatedPasswordShown] = useState<boolean>(false);
-  const [emailValid, setEmailValid] = useState<boolean>(true);
-  const [passwordValid, setPasswordValid] = useState<boolean>(true);
-  const [repPasswordValid, setRepPasswordValid] = useState<boolean>(true);
-  const [usernameChanged, setUsernameChanged] = useState<boolean>(false);
   const [emailChanged, setEmailChanged] = useState<boolean>(false);
+  const [emailValid, setEmailValid] = useState<boolean>(true);
+  const [username, setUsername] = useState<string>('');
+  const [usernameChanged, setUsernameChanged] = useState<boolean>(false);
+  const [oldUsername, setOldUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [passwordShown, setPasswordShown] = useState<boolean>(false);
+  const [passwordValid, setPasswordValid] = useState<boolean>(true);
+  const [passwordChanged, setPasswordChanged] = useState<boolean>(false);
+  const [oldPassword, setOldPassword] = useState<string>('');
+  const [repeatedPassword, setRepeatedPassword] = useState<string>('');
+  const [repeatedPasswordShown, setRepeatedPasswordShown] = useState<boolean>(false);
+  const [repPasswordValid, setRepPasswordValid] = useState<boolean>(true);
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
   useEffect(() => {
     if (email) {
@@ -51,10 +54,11 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
     if (authUser) {
       setEmail(authUser.email);
     }
-    const { data, error } = await supabase.from('Profiles').select('username, uuid').eq('uuid', authUser?.id).single();
+    const { data, error } = await supabase.from('Profiles').select('*').eq('uuid', authUser?.id).single();
     if (data) {
       setUsername(data.username);
       setOldUsername(data.username);
+      setOldPassword(data.password);
     }
   }
 
@@ -76,10 +80,47 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
     } else {
       setUsernameChanged(false);
     }
-  }, [email, username, oldUsername]);
+
+    if (password !== '') {
+      setPasswordChanged(false);
+      if (password !== oldPassword && repeatedPassword !== oldPassword) {
+        setPasswordChanged(true);
+      } else {
+        setPasswordChanged(false);
+      }
+    }
+  }, [email, username, oldUsername, password, repeatedPassword, oldPassword]);
 
   const handleUserChange = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    if (usernameChanged) {
+      await supabase.from('Profiles').update({ username: username }).match({ uuid: authUser?.id });
+    }
+
+    //There must be an easier way to do this
+    if (emailChanged && passwordChanged) {
+      const { data, error } = await supabase.auth.updateUser({
+        email: email,
+        password: password,
+      });
+      if (data.user) {
+        setAuthUser(data.user);
+      }
+    } else if (emailChanged) {
+      const { data, error } = await supabase.auth.updateUser({
+        email: email,
+      });
+      if (data.user) {
+        setAuthUser(data.user);
+      }
+    } else if (passwordChanged) {
+      const { data, error } = await supabase.auth.updateUser({
+        password: password,
+      });
+      if (data.user) {
+        setAuthUser(data.user);
+      }
+    }
   };
 
   const handleLogOut = async () => {
@@ -127,7 +168,7 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
   };
 
   let submitChangesButton;
-  if (!isDisabled || usernameChanged || emailChanged) {
+  if (!isDisabled || usernameChanged || emailChanged || passwordChanged) {
     submitChangesButton = (
       <IonButton expand="full" className="w-full mb-2 border-2 border-black" color={'secondary'} onClick={handleUserChange}>
         {t('profilePage.submitChanges')}
