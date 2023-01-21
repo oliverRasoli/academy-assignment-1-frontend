@@ -127,7 +127,7 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
   };
 
   let submitChangesButton;
-  if (!isDisabled) {
+  if (!isDisabled || usernameChanged || emailChanged) {
     submitChangesButton = (
       <IonButton expand="full" className="w-full mb-2 border-2 border-black" color={'secondary'} onClick={handleUserChange}>
         {t('profilePage.submitChanges')}
