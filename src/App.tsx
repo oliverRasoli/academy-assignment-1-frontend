@@ -76,7 +76,6 @@ const App: React.FC = () => {
             <Route exact path="/forgotpassword" component={ForgotPasswordPage} />
             <Route exact path="/resetpassword" component={ResetPasswordPage} />
             <Route exact path="/register" component={RegisterPage} />
-            <Route exact path="/intro" component={IntroPage} />
             <Route path="/ui-library" component={UILibRouter} />
             <Route path="/*">
               <Redirect to={session ? '/home' : '/welcome'} />

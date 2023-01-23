@@ -28,7 +28,7 @@ const Tab4: React.FC = () => {
     fetchDogs();
   }, []);
   return (
-    <IonContent color={'white-background'}>
+    <IonContent className="ion-padding">
       <div className="m-14">
         <CreateDog />
       </div>

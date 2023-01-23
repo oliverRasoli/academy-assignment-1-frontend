@@ -12,6 +12,9 @@
 
   --tertiary-color: #f3dfa2;
 
+  --ant-primary-color: var(--primary-color);
+  --ant-secondary-color: var(--secondary-color);
+
   --current-theme-accent: var(--ant-primary-color);
 
   --success: #6dd63c;
@@ -34,4 +37,8 @@ ion-header {
 ion-tab-bar {
   border-width: 2px;
   border-color: black;
+}
+
+ion-card {
+  background: var(--tertiary-color);
 }

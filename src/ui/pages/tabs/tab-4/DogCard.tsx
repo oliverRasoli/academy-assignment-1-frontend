@@ -1,15 +1,20 @@
-import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle } from '@ionic/react';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/react';
 import { Dogs } from 'types/data-types-exports';
+import CardFloatButtons from './CardFloatButtons';
 
 const DogCard = (dog: Dogs) => {
   return (
-    <IonCard>
-      <img alt="wrinkly" src={'./assets/icon/cheems.png'} />
-      <IonCardHeader>
-        <IonCardTitle>{dog.race_name}</IonCardTitle>
-      </IonCardHeader>
-      <IonCardSubtitle>{dog.description}</IonCardSubtitle>
-    </IonCard>
+    <div>
+      <div className="relative left-72 top-10 z-10">
+        <CardFloatButtons />
+      </div>
+      <IonCard>
+        <IonCardHeader>
+          <IonCardTitle>{dog.race_name}</IonCardTitle>
+        </IonCardHeader>
+        <IonCardContent>{dog.description}</IonCardContent>
+      </IonCard>
+    </div>
   );
 };
 
