@@ -5,6 +5,7 @@ import { at, chevronBackCircle, eyeOffOutline, eyeOutline, lockClosedOutline, pe
 import Separator from 'ui/components/generic/Separator';
 import { supabase } from 'apis/supabaseClient';
 import { useAuthUserStore } from 'store/user';
+import { UserResponse } from '@supabase/supabase-js';
 
 type RegisterFormProps = {
   togglePasswordButtonType?: 'text' | 'icon' | 'none';
@@ -18,6 +19,7 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
   const [email, setEmail] = useState<string | undefined>('');
   const [emailChanged, setEmailChanged] = useState<boolean>(false);
   const [emailValid, setEmailValid] = useState<boolean>(true);
+  const [oldEmail, setOldEmail] = useState<string | undefined>('');
   const [username, setUsername] = useState<string>('');
   const [usernameChanged, setUsernameChanged] = useState<boolean>(false);
   const [oldUsername, setOldUsername] = useState<string>('');
@@ -52,7 +54,13 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
 
   async function getData() {
     if (authUser) {
-      setEmail(authUser.email);
+      if (authUser.new_email) {
+        setEmail(authUser.new_email);
+        setOldEmail(authUser.new_email);
+      } else {
+        setEmail(authUser.email);
+        setOldEmail(authUser.new_email);
+      }
     }
     const { data, error } = await supabase.from('Profiles').select('*').eq('uuid', authUser?.id).single();
     if (data) {
@@ -68,7 +76,7 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
 
   useEffect(() => {
     if (authUser) {
-      if (authUser.email !== email) {
+      if (oldEmail !== email) {
         setEmailChanged(true);
       } else {
         setEmailChanged(false);
