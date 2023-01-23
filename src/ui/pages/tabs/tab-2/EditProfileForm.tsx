@@ -1,4 +1,4 @@
-import { IonButton, IonIcon, IonInput, IonItem, IonText, useIonRouter } from '@ionic/react';
+import { IonButton, IonIcon, IonInput, IonItem, IonText, useIonRouter, useIonToast } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 import { t } from 'i18next';
 import { at, chevronBackCircle, eyeOffOutline, eyeOutline, lockClosedOutline, person } from 'ionicons/icons';
@@ -32,6 +32,7 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
   const [repeatedPasswordShown, setRepeatedPasswordShown] = useState<boolean>(false);
   const [repPasswordValid, setRepPasswordValid] = useState<boolean>(true);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [present] = useIonToast();
 
   useEffect(() => {
     if (email) {
@@ -99,6 +100,14 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
     }
   }, [email, username, oldUsername, password, repeatedPassword, oldPassword]);
 
+  const presentToast = (position: 'top' | 'middle' | 'bottom', message: string) => {
+    present({
+      message: message,
+      duration: 1500,
+      position: position,
+    });
+  };
+
   const handleUserChange = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (usernameChanged) {
@@ -129,6 +138,8 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
         setAuthUser(data.user);
       }
     }
+
+    presentToast('bottom', 'User Credentials has been changed!');
   };
 
   const handleLogOut = async () => {

@@ -106,6 +106,10 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-white-text-tint: #ffffff;
 }
 
+ion-toast {
+  --background: var(--ion-color-tertiary);
+}
+
 .ion-color-primary-brand {
   --ion-color-base: var(--ion-color-primary-brand);
   --ion-color-base-rgb: var(--ion-color-primary-brand-rgb);
