@@ -269,7 +269,7 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
         <button className="hidden" type="submit" />
         <Separator text={t('authentication.or')} />
         <IonButton onClick={handleLogOut} expand="full" color={'secondary'} class="border-2 border-black" slot="end">
-          {t('homePage.logOut')}
+          {t('profilePage.logOut')}
         </IonButton>
       </form>
     </div>

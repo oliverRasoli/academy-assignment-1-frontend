@@ -6,7 +6,7 @@
     "signIn": "Sign in"
   },
   "homePage": {
-    "logOut": "Log Out"
+    "homePage": "Home Page"
   },
   "profilePage": {
     "editProfile": "Edit your profile",
@@ -14,7 +14,8 @@
     "username": "Username",
     "password": "Password",
     "repeatPassword": "Repeat password",
-    "submitChanges": "Submit Changes"
+    "submitChanges": "Submit Changes",
+    "logOut": "Log Out"
   },
   "tabContent": {
     "takeAPhoto": "Take a photo!"
