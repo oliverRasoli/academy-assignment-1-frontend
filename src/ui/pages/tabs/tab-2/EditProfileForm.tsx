@@ -1,11 +1,10 @@
 import { IonButton, IonIcon, IonInput, IonItem, IonText, useIonRouter, useIonToast } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 import { t } from 'i18next';
-import { at, chevronBackCircle, eyeOffOutline, eyeOutline, lockClosedOutline, person } from 'ionicons/icons';
+import { at, eyeOffOutline, eyeOutline, lockClosedOutline, person } from 'ionicons/icons';
 import Separator from 'ui/components/generic/Separator';
 import { supabase } from 'apis/supabaseClient';
 import { useAuthUserStore } from 'store/user';
-import { UserResponse } from '@supabase/supabase-js';
 
 type RegisterFormProps = {
   togglePasswordButtonType?: 'text' | 'icon' | 'none';
@@ -77,20 +76,26 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
 
   useEffect(() => {
     if (authUser) {
-      if (oldEmail !== email) {
+      if (authUser.email !== email && email !== '') {
+        setEmailChanged(true);
+      } else {
+        setEmailChanged(false);
+      }
+    } else {
+      if (oldEmail !== email && email !== '') {
         setEmailChanged(true);
       } else {
         setEmailChanged(false);
       }
     }
 
-    if (username !== oldUsername) {
+    if (username !== oldUsername && username !== '') {
       setUsernameChanged(true);
     } else {
       setUsernameChanged(false);
     }
 
-    if (password !== '') {
+    if (password !== repeatedPassword) {
       setPasswordChanged(false);
       if (password !== oldPassword && repeatedPassword !== oldPassword) {
         setPasswordChanged(true);
@@ -98,7 +103,7 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
         setPasswordChanged(false);
       }
     }
-  }, [email, username, oldUsername, password, repeatedPassword, oldPassword]);
+  }, [email, oldEmail, username, oldUsername, password, repeatedPassword, oldPassword]);
 
   const presentToast = (position: 'top' | 'middle' | 'bottom', message: string) => {
     present({
@@ -116,11 +121,13 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
 
     //There must be an easier way to do this
     if (emailChanged && passwordChanged) {
+      await supabase.from('Profiles').update({ password: password }).match({ uuid: authUser?.id });
       const { data, error } = await supabase.auth.updateUser({
         email: email,
         password: password,
       });
       if (data.user) {
+        console.log('Hello from big if: ' + email + password);
         setAuthUser(data.user);
       }
     } else if (emailChanged) {
@@ -131,14 +138,17 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
         setAuthUser(data.user);
       }
     } else if (passwordChanged) {
+      await supabase.from('Profiles').update({ password: password }).match({ uuid: authUser?.id });
       const { data, error } = await supabase.auth.updateUser({
         password: password,
       });
       if (data.user) {
         setAuthUser(data.user);
+        console.log('Hello from Else if: ' + password);
       }
     }
 
+    setIsDisabled(true);
     presentToast('bottom', 'User Credentials has been changed!');
   };
 
