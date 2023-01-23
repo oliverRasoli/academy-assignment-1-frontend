@@ -8,6 +8,15 @@
   "homePage": {
     "homePage": "Home Page"
   },
+  "dogPage": {
+    "createDogCard": "Create a Dog Card!",
+    "newDogCard": "New Dog Card",
+    "confirm": "Confirm",
+    "describeDog": "Descripe the dog",
+    "dogsRace": "Dog's Race",
+    "dogsDescription": "Description of the Dog",
+    "cancel": "Cancel"
+  },
   "profilePage": {
     "editProfile": "Edit your profile",
     "email": "Email",

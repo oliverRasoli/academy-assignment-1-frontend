@@ -11,19 +11,22 @@ export interface Database {
     Tables: {
       Dogs: {
         Row: {
+          description: string
           id: number
           race_name: string
-          reason: string
+          uuid: string
         }
         Insert: {
+          description: string
           id?: number
           race_name: string
-          reason: string
+          uuid: string
         }
         Update: {
+          description?: string
           id?: number
           race_name?: string
-          reason?: string
+          uuid?: string
         }
       }
       Profiles: {
