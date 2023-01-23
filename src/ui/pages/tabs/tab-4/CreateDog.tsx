@@ -23,6 +23,7 @@ const CreateDog: React.FC = () => {
     if (authUser) {
       await supabase.from('Dogs').insert({ race_name: raceName, description: description, uuid: authUser?.id });
     }
+    window.location.reload();
   };
 
   return (

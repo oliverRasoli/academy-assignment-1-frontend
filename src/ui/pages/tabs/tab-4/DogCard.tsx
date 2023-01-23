@@ -4,7 +4,7 @@ import CardFloatButtons from './CardFloatButtons';
 
 const DogCard = (dog: Dogs) => {
   return (
-    <div>
+    <div className="-mb-8">
       <div className="relative left-72 top-10 z-10">
         <CardFloatButtons />
       </div>

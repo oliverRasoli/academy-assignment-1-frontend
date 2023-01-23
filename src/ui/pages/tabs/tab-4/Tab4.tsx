@@ -29,7 +29,7 @@ const Tab4: React.FC = () => {
   }, []);
   return (
     <IonContent className="ion-padding">
-      <div className="m-14">
+      <div className="ml-24 -mb-6">
         <CreateDog />
       </div>
       {dogs?.map((dog) => (
