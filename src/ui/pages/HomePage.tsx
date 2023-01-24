@@ -46,7 +46,7 @@ const HomePage: React.FC = () => {
       <IonHeader>
         <IonToolbar color={'tertiary'}>
           <Center>
-            <IonText color="dark">{profile?.username ? profile.username : 'FEJL DU'}</IonText>
+            <IonText color="dark">{profile?.username ? profile.username : t('homePage.whoops')}</IonText>
           </Center>
         </IonToolbar>
       </IonHeader>

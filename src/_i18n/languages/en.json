@@ -6,7 +6,8 @@
     "signIn": "Sign in"
   },
   "homePage": {
-    "homePage": "Home Page"
+    "homePage": "Home Page",
+    "whoops": "Username SHOULD be here"
   },
   "dogPage": {
     "createDogCard": "Create a Dog Card!",
