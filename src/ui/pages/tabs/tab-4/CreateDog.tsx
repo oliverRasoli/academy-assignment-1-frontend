@@ -21,9 +21,9 @@ const CreateDog: React.FC = () => {
 
   const submitDog = async () => {
     if (authUser) {
-      await supabase.from('Dogs').insert({ race_name: raceName, description: description, uuid: authUser?.id });
+      await supabase.from('dogs').insert({ race_name: raceName, description: description, uuid: authUser?.id });
     }
-    window.location.reload();
+    //window.location.reload();
   };
 
   return (

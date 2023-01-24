@@ -8,6 +8,8 @@ import { Provider } from '@supabase/supabase-js';
 import Separator from 'ui/components/generic/Separator';
 import { t } from 'i18next';
 import { render } from '@testing-library/react';
+import { useProfileStore } from 'store/profile';
+import { message, Select } from 'antd';
 
 type LoginFormProps = {
   togglePasswordButtonType?: 'text' | 'icon' | 'none';
@@ -23,13 +25,30 @@ const LoginForm: React.FC<LoginFormProps> = ({ togglePasswordButtonType = 'icon'
   const [present, dismiss] = useIonLoading();
   const [presentAlert] = useIonAlert();
 
+  const authUser = useAuthUserStore((state) => state.authUser);
   const setAuthUser = useAuthUserStore((state) => state.setAuthUser);
+  const setProfile = useProfileStore((state) => state.setProfile);
 
   useEffect(() => {
     setIsSubmitDisabled(!(email.includes('@') && password !== ''));
   }, [email, password]);
 
   const togglePassword = () => setIsPasswordRevealed(!isPasswordRevealed);
+
+  async function handleProfile(uuid: string) {
+    const { data, error } = await supabase.from('profiles').select('*').eq('id', uuid).single();
+    if (data) {
+      setProfile(data);
+    }
+    if (error) {
+      console.log(error);
+      await presentAlert({
+        header: t('authentication.loginFailed'),
+        message: error?.message,
+        buttons: ['OK'],
+      });
+    }
+  }
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -38,6 +57,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ togglePasswordButtonType = 'icon'
 
     if (data.user && data.user.aud === 'authenticated') {
       setAuthUser(data.user);
+      handleProfile(data.user.id);
       await dismiss();
       router.push('/home');
     } else {

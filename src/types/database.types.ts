@@ -9,7 +9,7 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      Dogs: {
+      dogs: {
         Row: {
           description: string
           id: number
@@ -29,27 +29,24 @@ export interface Database {
           uuid?: string
         }
       }
-      Profiles: {
+      profiles: {
         Row: {
-          created_at: string | null
-          id: number
+          created_at: string
+          id: string
           password: string
           username: string
-          uuid: string
         }
         Insert: {
-          created_at?: string | null
-          id?: number
+          created_at: string
+          id?: string
           password: string
           username: string
-          uuid: string
         }
         Update: {
-          created_at?: string | null
-          id?: number
+          created_at?: string
+          id?: string
           password?: string
           username?: string
-          uuid?: string
         }
       }
     }

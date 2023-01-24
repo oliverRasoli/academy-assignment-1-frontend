@@ -62,11 +62,14 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
         setOldEmail(authUser.new_email);
       }
     }
-    const { data, error } = await supabase.from('Profiles').select('*').eq('uuid', authUser?.id).single();
+    const { data, error } = await supabase.from('profiles').select('*').eq('id', authUser?.id).single();
     if (data) {
       setUsername(data.username);
       setOldUsername(data.username);
       setOldPassword(data.password);
+    }
+    if (error) {
+      console.log(error);
     }
   }
 

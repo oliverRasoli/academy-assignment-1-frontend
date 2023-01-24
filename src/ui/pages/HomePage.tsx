@@ -18,6 +18,7 @@ import {
   IonItem,
   IonButton,
   useIonRouter,
+  IonText,
 } from '@ionic/react';
 import { peopleOutline, homeOutline, pawOutline } from 'ionicons/icons';
 
@@ -28,10 +29,13 @@ import Tab4 from './tabs/tab-4/Tab4';
 import { supabase } from 'apis/supabaseClient';
 import { useAuthUserStore } from 'store/user';
 import { t } from 'i18next';
+import { useProfileStore } from 'store/profile';
+import { Center } from 'ui/components/generic/Center';
 
 const HomePage: React.FC = () => {
   const router = useIonRouter();
   const authUser = useAuthUserStore((state) => state.authUser);
+  const profile = useProfileStore((profile) => profile.profile);
 
   useEffect(() => {
     if (!authUser) router.push('/login');
@@ -41,9 +45,9 @@ const HomePage: React.FC = () => {
     <IonPage id="main-content">
       <IonHeader>
         <IonToolbar color={'tertiary'}>
-          <IonButtons slot="start">
-            <IonMenuButton />
-          </IonButtons>
+          <Center>
+            <IonText color="dark">{profile?.username ? profile.username : 'FEJL DU'}</IonText>
+          </Center>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">

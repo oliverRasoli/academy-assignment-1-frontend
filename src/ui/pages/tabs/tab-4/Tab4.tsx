@@ -15,7 +15,7 @@ const Tab4: React.FC = () => {
 
   useEffect(() => {
     const fetchDogs = async () => {
-      const { data, error } = await supabase.from('Dogs').select('*').eq('uuid', authUser?.id);
+      const { data, error } = await supabase.from('dogs').select('*').eq('uuid', authUser?.id);
       if (error) {
         setFetchError(error);
       }
