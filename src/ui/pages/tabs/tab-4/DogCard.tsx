@@ -30,7 +30,7 @@ const DogCard = (dog: Dogs) => {
         <CardFloatButtons />
       </div>
       <IonCard>
-        <img src={image} alt="dog goes here" />
+        <img src={image} alt="dog goes here" className="w-72 h-60" />
         <IonCardHeader>
           <IonCardTitle>{dog.race_name}</IonCardTitle>
         </IonCardHeader>
