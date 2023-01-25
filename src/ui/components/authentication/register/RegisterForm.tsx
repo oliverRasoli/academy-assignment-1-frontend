@@ -6,6 +6,7 @@ import { at, chevronBackCircle, eyeOffOutline, eyeOutline, lockClosedOutline, pe
 import SocialLoginButton from '../social-login-buttons/SocialLoginButton';
 import Separator from 'ui/components/generic/Separator';
 import { useAuthUserStore } from 'store/user';
+import { useProfileStore } from 'store/profile';
 import { Provider } from '@supabase/supabase-js';
 import { t } from 'i18next';
 
@@ -17,6 +18,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType = 
   const router = useIonRouter();
   const history = useHistory();
   const setAuthUser = useAuthUserStore((state) => state.setAuthUser);
+  const setProfile = useProfileStore((state) => state.setProfile);
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -45,6 +47,20 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType = 
     setIsDisabled(!emailCheck || !passwordCheck || !repPasswordCheck);
   }, [email, password, repeatedPassword]);
 
+  async function handleProfile(uuid: string) {
+    const { data, error } = await supabase.from('profiles').select('*').eq('id', uuid).single();
+    if (data) {
+      setProfile(data);
+    }
+    if (error) {
+      await presentAlert({
+        header: t('authentication.loginFailed'),
+        message: error?.message,
+        buttons: ['OK'],
+      });
+    }
+  }
+
   const handleSignUp = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (password !== repeatedPassword) {
@@ -54,6 +70,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType = 
     const { data, error } = await supabase.auth.signUp({ email, password });
     if (data.user) {
       setAuthUser(data.user);
+      handleProfile(data.user.id);
       await supabase.from('profiles').insert({ username: username, password: password, created_at: data.user.created_at, id: data.user.id });
       await dismiss();
       await presentAlert({ header: t('authentication.signUpSuccessful'), buttons: ['OK'] });

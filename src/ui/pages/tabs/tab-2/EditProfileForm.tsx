@@ -5,6 +5,7 @@ import { at, eyeOffOutline, eyeOutline, lockClosedOutline, person } from 'ionico
 import Separator from 'ui/components/generic/Separator';
 import { supabase } from 'apis/supabaseClient';
 import { useAuthUserStore } from 'store/user';
+import { useProfileStore } from 'store/profile';
 
 type RegisterFormProps = {
   togglePasswordButtonType?: 'text' | 'icon' | 'none';
@@ -14,6 +15,7 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
   const authUser = useAuthUserStore((state) => state.authUser);
   const resetAuthUser = useAuthUserStore((state) => state.resetAuthUser);
   const setAuthUser = useAuthUserStore((state) => state.setAuthUser);
+  const setProfile = useProfileStore((state) => state.setProfile);
   const router = useIonRouter();
   const [email, setEmail] = useState<string | undefined>('');
   const [emailChanged, setEmailChanged] = useState<boolean>(false);
@@ -52,6 +54,20 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
     if (!authUser) router.push('/login');
   }, [router, authUser]);
 
+  async function handleProfile(uuid: string) {
+    const { data, error } = await supabase.from('profiles').select('*').eq('id', uuid).single();
+    if (data) {
+      setProfile(data);
+    }
+    if (error) {
+      await presentAlert({
+        header: t('authentication.loginFailed'),
+        message: error?.message,
+        buttons: ['OK'],
+      });
+    }
+  }
+
   async function getData() {
     if (authUser) {
       if (authUser.new_email) {
@@ -62,6 +78,7 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
         setOldEmail(authUser.new_email);
       }
     }
+
     const { data, error } = await supabase.from('profiles').select('*').eq('id', authUser?.id).single();
     if (data) {
       setUsername(data.username);
@@ -119,19 +136,21 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
   const handleUserChange = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (usernameChanged) {
-      await supabase.from('Profiles').update({ username: username }).match({ uuid: authUser?.id });
+      const { data, error } = await supabase.from('profiles').update({ username: username }).eq('id', authUser?.id);
     }
 
     //There must be an easier way to do this
     if (emailChanged && passwordChanged) {
-      await supabase.from('Profiles').update({ password: password }).match({ uuid: authUser?.id });
+      await supabase.from('profiles').update({ password: password }).eq('id', authUser?.id);
       const { data, error } = await supabase.auth.updateUser({
         email: email,
         password: password,
       });
       if (data.user) {
-        console.log('Hello from big if: ' + email + password);
         setAuthUser(data.user);
+      }
+      if (error) {
+        console.log(error);
       }
     } else if (emailChanged) {
       const { data, error } = await supabase.auth.updateUser({
@@ -140,23 +159,31 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
       if (data.user) {
         setAuthUser(data.user);
       }
+      if (error) {
+        console.log(error);
+      }
     } else if (passwordChanged) {
-      await supabase.from('Profiles').update({ password: password }).match({ uuid: authUser?.id });
+      await supabase.from('profiles').update({ password: password }).eq('id', authUser?.id);
       const { data, error } = await supabase.auth.updateUser({
         password: password,
       });
       if (data.user) {
         setAuthUser(data.user);
-        console.log('Hello from Else if: ' + password);
+      }
+      if (error) {
+        console.log(error);
       }
     }
-
+    if (authUser) {
+      handleProfile(authUser.id);
+    }
     setIsDisabled(true);
     presentToast('bottom', 'User Credentials has been changed!');
   };
 
   const handleLogOut = async () => {
     resetAuthUser();
+    //resetProfile();
     await supabase.auth.signOut();
   };
 
@@ -280,3 +307,6 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
 };
 
 export default EditProfileForm;
+function presentAlert(arg0: { header: string; message: string; buttons: string[] }) {
+  throw new Error('Function not implemented.');
+}
