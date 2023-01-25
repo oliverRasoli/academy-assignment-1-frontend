@@ -63,7 +63,7 @@ const HomePage: React.FC = () => {
               </Route>
             </IonRouterOutlet>
 
-            <IonTabBar slot="bottom" color={'tertiary'} class={'h-[70px] border-t-[1px] border'}>
+            <IonTabBar slot="bottom" color={'secondary'} class={'h-[70px] border-t-[1px] border'}>
               {pages.map((p, i) => {
                 return (
                   <IonTabButton key={i} tab={`tab${i}`} href={p.path}>
