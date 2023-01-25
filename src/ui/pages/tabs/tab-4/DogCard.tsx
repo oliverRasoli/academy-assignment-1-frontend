@@ -2,7 +2,6 @@ import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent }
 import { useEffect, useState } from 'react';
 import { Dogs } from 'types/data-types-exports';
 import CardFloatButtons from './CardFloatButtons';
-import { createClient } from '@supabase/supabase-js';
 import { supabase } from 'apis/supabaseClient';
 
 const DogCard = (dog: Dogs) => {
