@@ -23,10 +23,14 @@ const DogCard = (dog: Dogs) => {
     getImage(dog.race_name.toLowerCase());
   }, []);
 
+  const onClicksCallback = (someData: string) => {
+    console.log(someData);
+  };
+
   return (
     <div className="-mb-8">
       <div className="relative left-72 top-10 z-10">
-        <CardFloatButtons />
+        <CardFloatButtons onClickCallback={onClicksCallback} />
       </div>
       <IonCard>
         <img src={image} alt="dog goes here" className="w-72 h-60" />

@@ -16,6 +16,7 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
   const resetAuthUser = useAuthUserStore((state) => state.resetAuthUser);
   const setAuthUser = useAuthUserStore((state) => state.setAuthUser);
   const setProfile = useProfileStore((state) => state.setProfile);
+  const resetProfile = useProfileStore((state) => state.resetProfile);
   const router = useIonRouter();
   const [email, setEmail] = useState<string | undefined>('');
   const [emailChanged, setEmailChanged] = useState<boolean>(false);
@@ -34,8 +35,15 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
   const [repPasswordValid, setRepPasswordValid] = useState<boolean>(true);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const [present] = useIonToast();
+  const [userInput, setUserInput] = useState({
+    username: { old: '', new: '' },
+  });
 
   useEffect(() => {
+    setUsername((prevState) => {
+      console.log(prevState);
+      return prevState.length > 0 ? 'over nul' : 'under nul';
+    });
     if (email) {
       const emailRegex =
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -183,7 +191,7 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
 
   const handleLogOut = async () => {
     resetAuthUser();
-    //resetProfile();
+    resetProfile();
     await supabase.auth.signOut();
   };
 
@@ -264,7 +272,9 @@ const EditProfileForm: React.FC<RegisterFormProps> = ({ togglePasswordButtonType
             <IonInput
               value={username}
               placeholder={t('profilePage.username')}
-              onIonChange={(e) => setUsername(e.detail.value ?? '')}
+              onIonChange={(e) => {
+                setUsername(e.detail.value ?? '');
+              }}
               type="text"
               class="h-[59px] items-center"
             />
